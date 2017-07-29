@@ -21,7 +21,8 @@
         </div>
         <!-- Body -->
         <div class="modal-body">
-          <form>
+          <form method="POST" action="/books">
+            {{ csrf_field() }}
             <div class="form-group">
               <label for="nameInput">Name</label>
               <input type="text" class="form-control" id="nameInput" placeholder="Name">

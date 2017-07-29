@@ -7,26 +7,28 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <!-- Bootstrap Styles -->
-        <link href = {{ asset("css/app.css") }} rel="stylesheet" />
+        <link href="/css/app.css" rel="stylesheet" />
         <!-- Bootstrap Script -->
-        <script type="text/javascript" src={{ asset("js/app.js") }}>
-        </script>
+        <script type="text/javascript" src="/js/app.js"></script>
+        <!-- AngularJs Stuff -->
+        <script type="text/javascript" src="/js/module.js"></script>
     </head>
-    <body>
-      <div class="container">
+    <body ng-app="app">
+      <div class="container" ng-controller="mainCtrl as vm">
+        {{x}}
         <!-- Pagination -->
-        @extends ('home.pagination')
+        <!-- @extends ('home.pagination') -->
 
         <!-- Reserve Book Modal -->
-        @extends ('home.reserveModal')
+        <!-- @extends ('home.reserveModal') -->
 
         <!-- Book List -->
-        @extends ('home.booksList')
+        <!-- @extends ('home.booksList') -->
 
         <!-- Add Book Modal-->
-        @extends ('home.addBook')
+        <!-- @extends ('home.addBook') -->
 
         <!-- Filter Box-->
-        @extends ('home.search')
+        <!-- @extends ('home.search') -->
     </body>
 </html>
