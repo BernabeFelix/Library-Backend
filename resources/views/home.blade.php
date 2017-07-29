@@ -58,11 +58,11 @@
                   <form>
                     <div class="form-group">
                       <label for="nameInput">Name</label>
-                      <input type="email" class="form-control" id="nameInput" placeholder="Name">
+                      <input type="text" class="form-control" id="nameInput" placeholder="Name">
                     </div>
                     <div class="form-group">
                       <label for="authorInput">Author</label>
-                      <input type="password" class="form-control" id="authorInput" placeholder="Author">
+                      <input type="text" class="form-control" id="authorInput" placeholder="Author">
                     </div>
                     <div class="form-group">
                       <label for="categorySelect">Category</label>
@@ -81,7 +81,7 @@
                         <option>2017</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                   </form>
                 </div>
                 <!-- Footer -->
@@ -143,6 +143,8 @@
                 <div class="pull-left">
                   <h4 >Harry Potter</h4>
                   <span>J.K. Rowling</span>
+                  <br>
+                  <span>Reserved by: Juan Perez</span>
                 </div>
                 <!-- Book actions -->
                 <button
@@ -156,7 +158,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
-                    <button type="button" name="button">
+                    <button type="button" name="button" data-toggle="modal" data-target="#reserveBookModal">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Reserve
                     </button>
                   </li>
@@ -178,30 +180,58 @@
           </li>
         </ul>
 
-      <!-- Pagination -->
-      <div class="row">
-          <div class="col-xs-12">
-            <nav aria-label="Page navigation" class="text-center">
-              <ul class="pagination">
-                <li>
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+        <!-- Reserve Book Modal -->
+        <div class="modal fade" id="reserveBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"> Reserve Book </h4>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="personNameInput">Person's Name</label>
+                  <input type="text" class="form-control" id="personNameInput" placeholder="Name">
+                </div>
+
+                <button type="submit" class="btn btn-success">Reserve</button>
+              </form>
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
+
+        <!-- Pagination -->
+        <div class="row">
+            <div class="col-xs-12">
+              <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination">
+                  <li>
+                    <a href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li>
+                    <a href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
     </body>
 </html>
