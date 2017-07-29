@@ -11,11 +11,12 @@
 |
 */
 
+
 Route::get('/', function() {
-    return view('index'); // will return resources/views/index.php
+  return view('index'); // will return resources/views/index.php
 });
 
-// Route::group(array('prefix' => 'api'), function() {
-//     Route::resource('books', 'BookController',
-//         array('only' => array('edit', 'index', 'store', 'destroy')));
-// });
+Route::group(array('prefix' => 'api'), function() {
+    Route::resource('books', 'BookController',
+        array('only' => array('index')));
+});
