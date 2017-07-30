@@ -10,9 +10,25 @@ angular
     $scope.addEditModal = undefined;
     // utils
     $scope.addBookToAddEditModal = addBookToAddEditModal;
+    $scope.addEditBook = addEditBook;
     $scope.releaseBook = releaseBook;
     $scope.reserveBook = reserveBook;
+    $scope.resetAddEditModal = resetAddEditModal;
+    $scope.resetReserveModal = resetReserveModal;
     $scope.saveBookToReserve = saveBookToReserve;
+
+    ////////// helpers //////////
+    const changeYearInString = (date, newYear) => {
+      var newDate = date.split('-');
+      newDate[0] = newYear;
+      newDate = newDate.join('-');
+
+      return newDate;
+    }
+
+    const hideModal = (selector) => {
+      $(selector).modal('toggle');
+    }
 
     const initCtrl = () => {
       $books.getAllBooks().then((books) => $scope.books = books);
@@ -26,14 +42,43 @@ angular
       }
     }
 
-    function addBookToAddEditModal({
-      name, author, category_id, published_at
-    }) {
-      published_at = parseInt(published_at.split('-').shift())
+    ////////// functions //////////
+    function addEditBook(formInvalid) {
+      // close modal
+      hideModal('#addEditBookModal')
+        // validate form (theoretically it should always be valid)
+      if (formInvalid) return;
 
-      $scope.addEditModal = {
-        name, author, category_id, published_at
-      };
+      // create a new object and assign the new user
+      var bookToReserve = $scope.books[bookToReserveIndex];
+      $scope.addEditModal.published_at = changeYearInString(bookToReserve.published_at, $scope.addEditModal.published_at);
+
+      if ($scope.addEditModal.id) {
+        $books.editBook($scope.addEditModal.id, $scope.addEditModal)
+          .then((allGood) => {
+            if (allGood) {
+              $scope.books[bookToReserveIndex] = $scope.addEditModal;
+            }
+            // clean fields
+            resetAddEditModal();
+          })
+      } else {
+        $books.createBook($scope.addEditModal)
+          .then((allGood) => {
+            if (allGood) {
+              $scope.books[bookToReserveIndex] = bookToReserve;
+            }
+            // clean fields
+            $scope.borrowerName = '';
+            bookToReserveIndex = undefined;
+          })
+      }
+    }
+
+    function addBookToAddEditModal(book) {
+      $scope.addEditModal = Object.assign({}, book);
+      // get only the year
+      $scope.addEditModal.published_at = parseInt($scope.addEditModal.published_at.split('-').shift());
     }
 
     function releaseBook(index) {
@@ -41,7 +86,7 @@ angular
       var bookToReserve = Object.assign({}, $scope.books[index]);
       bookToReserve.user = '';
 
-      $books.editBook(bookToReserve)
+      $books.editBook(bookToReserve.id, bookToReserve)
         .then((allGood) => {
           if (allGood) {
             $scope.books[index] = bookToReserve;
@@ -51,7 +96,7 @@ angular
 
     function reserveBook(formInvalid) {
       // close modal
-      $('#reserveBookModal').modal('toggle');
+      hideModal('#reserveBookModal');
       // validate form (theoretically it should always be valid)
       if (formInvalid) return;
 
@@ -59,15 +104,24 @@ angular
       var bookToReserve = Object.assign({}, $scope.books[bookToReserveIndex]);
       bookToReserve.user = $scope.borrowerName;
 
-      $books.editBook(bookToReserve)
+      $books.editBook(bookToReserve.id, bookToReserve)
         .then((allGood) => {
           if (allGood) {
             $scope.books[bookToReserveIndex] = bookToReserve;
           }
           // clean fields
-          $scope.borrowerName = '';
-          bookToReserveIndex = undefined;
+          resetReserveModal();
         })
+    }
+
+    function resetAddEditModal() {
+      $scope.addEditModal = undefined;
+      bookToReserveIndex = undefined;
+    }
+
+    function resetReserveModal() {
+      $scope.borrowerName = '';
+      bookToReserveIndex = undefined;
     }
 
     function saveBookToReserve(index) {

@@ -15,12 +15,13 @@ class BookController extends Controller
 
   public function update(Request $request, $id)
   {
-    $name = $request->input('name');
     $author = $request->input('author');
     $category_id = $request->input('category_id');
+    $name = $request->input('name');
+    $published_at = $request->input('published_at');
     $user = $request->input('user')?? '';
 
-    Book::where('id', $id)->update(compact(['name', 'author', 'category_id', 'user']));
+    Book::where('id', $id)->update(compact(['name', 'author', 'category_id', 'published_at', 'user']));
 
     return response()->json(['success' => true]);
   }

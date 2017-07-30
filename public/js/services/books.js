@@ -17,13 +17,16 @@ angular
         )
     }
 
-    function editBook({
-      id, name, author, category_id, user
-    }) {
+    function editBook(id, data) {
+      var {
+        author, category_id, name, published_at, user
+      } = data;
+
       return $http.patch(`/api/books/${id}`, {
           author,
           category_id,
           name,
+          published_at,
           user
         })
         .then(

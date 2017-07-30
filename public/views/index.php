@@ -31,8 +31,8 @@
               >Add Book</button>
           </div>
 
-          <!-- Modal -->
-          <div class="modal fade" id="addEditBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <!-- Add/Edit Modal -->
+          <div class="modal fade" id="addEditBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <!-- Header -->
@@ -42,22 +42,36 @@
                 </div>
                 <!-- Body -->
                 <div class="modal-body">
-                  <form method="POST" action="/books">
-                    {{ csrf_field() }}
+                  <form id="addEditForm" novalidate name="addEditForm" ng-submit="addEditBook(addEditForm.$invalid)">
                     <div class="form-group">
                       <label for="nameInput">Name</label>
-                      <input type="text" class="form-control" id="nameInput" ng-model="addEditModal.name" placeholder="Name">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nameInput"
+                        ng-model="addEditModal.name"
+                        placeholder="Name"
+                        required
+                        >
                     </div>
                     <div class="form-group">
                       <label for="authorInput">Author</label>
-                      <input type="text" class="form-control" id="authorInput" ng-model="addEditModal.author" placeholder="Author">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="authorInput"
+                        ng-model="addEditModal.author"
+                        placeholder="Author"
+                        required
+                        >
                     </div>
                     <div class="form-group">
                       <label for="categorySelect">Category</label>
                       <select
                         class="form-control"
                         id="categorySelect"
-                        ng-model="addEditModal.category_id">
+                        ng-model="addEditModal.category_id"
+                        required>
                           <option
                             ng-value="category.id"
                             ng-repeat="category in categories">{{category.name}}</option>
@@ -68,18 +82,19 @@
                       <select
                         class="form-control"
                         id="publishedDateYearSelect"
-                        ng-model="addEditModal.published_at">
+                        ng-model="addEditModal.published_at"
+                        required>
                         <option
                           ng-value="year"
                           ng-repeat="year in bookYears">{{year}}</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="addEditForm.$invalid">Save</button>
                   </form>
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetAddEditModal()">Cancel</button>
                 </div>
               </div>
             </div>
@@ -140,7 +155,7 @@
         </ul>
 
         <!-- Reserve Book Modal -->
-        <div class="modal fade" id="reserveBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="reserveBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
           <div class="modal-dialog" role="document">
           <div class="modal-content">
             <!-- Header -->
@@ -161,7 +176,7 @@
             </div>
             <!-- Footer -->
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetReserveModal()">Cancel</button>
             </div>
           </div>
         </div>
