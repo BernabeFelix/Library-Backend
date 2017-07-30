@@ -30,8 +30,16 @@ class BookController extends Controller
     return response()->json(['success' => true]);
   }
 
-  public function index()
+  public function index(Request $request)
   {
+    $filterText = $request->input('filterText');
+
+    if ($filterText) {
+      $query = Book::where('name', 'LIKE', "%$filterText%");
+      $query->orWhere('author', 'LIKE', "%$filterText%");
+
+      return response()->json($query->paginate(3));
+    }
     return response()->json(Book::paginate(3));
   }
 

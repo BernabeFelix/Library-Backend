@@ -9,11 +9,13 @@ angular
     $scope.borrowerName = '';
     $scope.categories = [];
     $scope.currentPage = 1;
+    $scope.filterText = '';
     $scope.nPages = [];
     // utils
     $scope.addBookToAddEditModal = addBookToAddEditModal;
     $scope.addEditBook = addEditBook;
     $scope.deleteBook = deleteBook
+    $scope.filterBooks = filterBooks;
     $scope.getPage = getPage;
     $scope.nextPage = nextPage;
     $scope.prevPage = prevPage;
@@ -30,6 +32,12 @@ angular
       newDate = newDate.join('-');
 
       return newDate;
+    }
+
+    const createNPages = (responseData) => {
+      if (responseData) {
+        $scope.nPages = createPagesRange(responseData.last_page);
+      }
     }
 
     const createPagesRange = (last) => {
@@ -58,11 +66,7 @@ angular
     }
 
     const initCtrl = () => {
-      $paginator.getNextBooks().then(handlePaginatorResponse).then((responseData) => {
-        if (responseData) {
-          $scope.nPages = createPagesRange(responseData.last_page);
-        }
-      })
+      $paginator.getPageBooks(1).then(handlePaginatorResponse).then(createNPages)
       $categories.getAllCategories().then((categories) => $scope.categories = categories);
       fillBookYears(1900, 2017);
     }
@@ -98,14 +102,7 @@ angular
           })
       } else {
         $books.createBook($scope.addEditModal)
-          .then((newId) => {
-            if (newId) {
-              $scope.addEditModal.id = newId;
-              $scope.books.push($scope.addEditModal);
-              // clean fields
-              resetAddEditModal();
-            }
-          })
+          .then(handlePaginatorResponse).then(createNPages).then(resetAddEditModal);
       }
     }
 
@@ -117,11 +114,12 @@ angular
 
     function deleteBook(id, index) {
       $books.deleteBook(id)
-        .then((allGood) => {
-          if (allGood) {
-            $scope.books.splice(index, 1);
-          }
-        })
+        .then(handlePaginatorResponse).then(createNPages);
+    }
+
+    function filterBooks() {
+      $paginator.getBooksFilterBy($scope.filterText)
+        .then(handlePaginatorResponse).then(createPagesRange);
     }
 
     function getPage(page) {

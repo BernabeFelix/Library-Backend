@@ -12,13 +12,31 @@
         <script type="text/javascript" src="/js/app.js"></script>
         <!-- AngularJs Stuff -->
         <script type="text/javascript" src="/js/module.js"></script>
+        <script type="text/javascript" src="/js/services/paginator.js"></script>
         <script type="text/javascript" src="/js/services/books.js"></script>
         <script type="text/javascript" src="/js/services/categories.js"></script>
-        <script type="text/javascript" src="/js/services/paginator.js"></script>
         <script type="text/javascript" src="/js/controllers/main.js"></script>
     </head>
     <body ng-app="library">
       <div class="container" ng-controller="mainCtrl">
+        <!-- Search bar -->
+        <div class="row" style="margin-bottom: 40px; margin-top: 20px;">
+          <div class="col-xs-12">
+            <h3>Filter books</h3>
+          </div>
+
+          <div class="col-xs-12">
+            <input
+              class="form-control"
+              ng-model="filterText"
+              ng-keyup="filterBooks()"
+              placeholder="Filter by author or name"
+              type="text"
+              >
+          </div>
+        </div>
+
+
         <!-- Add/Edit Book Modal -->
         <div class="row">
           <div class="col-xs-5">

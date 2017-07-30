@@ -1,6 +1,6 @@
 angular
   .module('library')
-  .factory('$books', ($http) => {
+  .factory('$books', ($http, $paginator) => {
     var service = {
       createBook,
       deleteBook,
@@ -21,7 +21,9 @@ angular
           user: ''
         })
         .then(
-          response => true,
+          response => {
+            return $paginator.getPageBooks(1);
+          },
           error => false
         )
     }
@@ -29,7 +31,9 @@ angular
     function deleteBook(id) {
       return $http.delete(`/api/books/${id}`)
         .then(
-          response => true,
+          response => {
+            return $paginator.getPageBooks(1);
+          },
           error => false
         )
     }

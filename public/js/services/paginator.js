@@ -6,6 +6,7 @@ module('library')
     self.prevUrl = undefined;
 
     var service = {
+      getBooksFilterBy,
       getNextBooks,
       getPageBooks,
       getPrevBooks
@@ -14,6 +15,15 @@ module('library')
     return service;
 
     // functions
+    function getBooksFilterBy(filterText) {
+      var url = `api/books?page=1`;
+      return $http.get(url, {
+        params: {
+          filterText
+        }
+      }).then(handlePaginatorResponse, error => false);
+    }
+
     function getPageBooks(page) {
       var url = `api/books?page=${page}`;
       return $http.get(url).then(handlePaginatorResponse, error => false);
