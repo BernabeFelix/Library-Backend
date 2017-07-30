@@ -52,7 +52,10 @@ angular
 
       // create a new object and assign the new user
       var bookToReserve = $scope.books[bookToReserveIndex];
-      $scope.addEditModal.published_at = changeYearInString(bookToReserve.published_at, $scope.addEditModal.published_at);
+      // for new or edit book
+      $scope.addEditModal.published_at = changeYearInString(bookToReserve ? bookToReserve.published_at : '0000-01-01',
+        $scope.addEditModal
+        .published_at);
 
       if ($scope.addEditModal.id) {
         $books.editBook($scope.addEditModal.id, $scope.addEditModal)
@@ -65,13 +68,13 @@ angular
           })
       } else {
         $books.createBook($scope.addEditModal)
-          .then((allGood) => {
-            if (allGood) {
-              $scope.books[bookToReserveIndex] = bookToReserve;
+          .then((newId) => {
+            if (newId) {
+              $scope.addEditModal.id = newId;
+              $scope.books.push($scope.addEditModal);
+              // clean fields
+              resetAddEditModal();
             }
-            // clean fields
-            $scope.borrowerName = '';
-            bookToReserveIndex = undefined;
           })
       }
     }
