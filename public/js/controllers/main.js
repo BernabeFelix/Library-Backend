@@ -15,6 +15,7 @@ angular
     $scope.addEditBook = addEditBook;
     $scope.deleteBook = deleteBook
     $scope.nextPage = nextPage;
+    $scope.prevPage = prevPage;
     $scope.releaseBook = releaseBook;
     $scope.reserveBook = reserveBook;
     $scope.resetAddEditModal = resetAddEditModal;
@@ -124,6 +125,10 @@ angular
 
     function nextPage() {
       $paginator.getNextBooks().then(handlePaginatorResponse);
+    }
+
+    function prevPage() {
+      $paginator.getPrevBooks().then(handlePaginatorResponse);
     }
 
     function releaseBook(index) {

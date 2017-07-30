@@ -6,16 +6,17 @@ module('library')
     self.prevUrl = undefined;
 
     var service = {
-      getNextBooks
+      getNextBooks,
+      getPrevBooks
     }
     return service;
     // functions
-    function functionName() {
-
+    function getPrevBooks() {
+      return $http.get(self.prevUrl).then(handlePaginatorResponse, error => false);
     }
 
-    function getNextBooks() {
-      var url = self.nextUrl ? self.nextUrl : 'api/books/';
+    function getNextBooks(page) {
+      var url = self.nextUrl ? self.nextUrl : 'api/books?page=1';
       return $http.get(url).then(handlePaginatorResponse, error => false);
     }
 
