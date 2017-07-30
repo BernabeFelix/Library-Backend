@@ -8,11 +8,13 @@ angular
     $scope.bookYears = [];
     $scope.borrowerName = '';
     $scope.categories = [];
+    $scope.currentPage = 1;
     $scope.nPages = [];
     // utils
     $scope.addBookToAddEditModal = addBookToAddEditModal;
     $scope.addEditBook = addEditBook;
     $scope.deleteBook = deleteBook
+    $scope.nextPage = nextPage;
     $scope.releaseBook = releaseBook;
     $scope.reserveBook = reserveBook;
     $scope.resetAddEditModal = resetAddEditModal;
@@ -50,7 +52,6 @@ angular
           $scope.books = data;
           $scope.nPages = createPagesRange(last_page);
         }
-
       });
       $categories.getAllCategories().then((categories) => $scope.categories = categories);
       fillBookYears(1900, 2017);
@@ -111,6 +112,18 @@ angular
             $scope.books.splice(index, 1);
           }
         })
+    }
+
+    function nextPage() {
+      $paginator.getNextBooks().then((data) => {
+        if (data) {
+          var {
+            data
+          } = data;
+          $scope.books = data;
+          $scope.currentPage += 1;
+        }
+      });
     }
 
     function releaseBook(index) {

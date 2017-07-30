@@ -193,12 +193,12 @@
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li ng-repeat="page in nPages">
-                    <a href="#">{{page}}</a>
+                  <li ng-repeat="page in nPages" ng-class="{active: currentPage === page}">
+                    <a >{{page}}</a>
                   </li>
 
                   <li>
-                    <a href="#" aria-label="Next">
+                    <a ng-click="nextPage()" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
