@@ -32,7 +32,7 @@ class BookController extends Controller
 
   public function index()
   {
-    return response()->json(Book::paginate(2));
+    return response()->json(Book::paginate(3));
   }
 
   public function update(Request $request, $id)

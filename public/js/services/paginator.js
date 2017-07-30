@@ -7,10 +7,18 @@ module('library')
 
     var service = {
       getNextBooks,
+      getPageBooks,
       getPrevBooks
     }
+
     return service;
+
     // functions
+    function getPageBooks(page) {
+      var url = `api/books?page=${page}`;
+      return $http.get(url).then(handlePaginatorResponse, error => false);
+    }
+
     function getPrevBooks() {
       return $http.get(self.prevUrl).then(handlePaginatorResponse, error => false);
     }

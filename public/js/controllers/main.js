@@ -14,6 +14,7 @@ angular
     $scope.addBookToAddEditModal = addBookToAddEditModal;
     $scope.addEditBook = addEditBook;
     $scope.deleteBook = deleteBook
+    $scope.getPage = getPage;
     $scope.nextPage = nextPage;
     $scope.prevPage = prevPage;
     $scope.releaseBook = releaseBook;
@@ -121,6 +122,10 @@ angular
             $scope.books.splice(index, 1);
           }
         })
+    }
+
+    function getPage(page) {
+      $paginator.getPageBooks(page).then(handlePaginatorResponse);
     }
 
     function nextPage() {
