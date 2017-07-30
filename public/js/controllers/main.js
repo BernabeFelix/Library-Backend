@@ -39,20 +39,28 @@ angular
       return arr;
     }
 
+    const handlePaginatorResponse = (responseData) => {
+      if (responseData) {
+        var {
+          data, current_page
+        } = responseData;
+        $scope.books = data;
+        $scope.currentPage = current_page;
+      }
+
+      return responseData;
+    }
+
     const hideModal = (selector) => {
       $(selector).modal('toggle');
     }
 
     const initCtrl = () => {
-      $paginator.getNextBooks().then((data) => {
-        if (data) {
-          var {
-            data, last_page
-          } = data;
-          $scope.books = data;
-          $scope.nPages = createPagesRange(last_page);
+      $paginator.getNextBooks().then(handlePaginatorResponse).then((responseData) => {
+        if (responseData) {
+          $scope.nPages = createPagesRange(responseData.last_page);
         }
-      });
+      })
       $categories.getAllCategories().then((categories) => $scope.categories = categories);
       fillBookYears(1900, 2017);
     }
@@ -115,15 +123,7 @@ angular
     }
 
     function nextPage() {
-      $paginator.getNextBooks().then((data) => {
-        if (data) {
-          var {
-            data
-          } = data;
-          $scope.books = data;
-          $scope.currentPage += 1;
-        }
-      });
+      $paginator.getNextBooks().then(handlePaginatorResponse);
     }
 
     function releaseBook(index) {
