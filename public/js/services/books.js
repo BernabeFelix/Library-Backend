@@ -4,8 +4,7 @@ angular
     var service = {
       createBook,
       deleteBook,
-      editBook,
-      getAllBooks
+      editBook
     }
 
     return service;
@@ -52,13 +51,4 @@ angular
           error => false
         )
     }
-
-    function getAllBooks() {
-      return $http.get('/api/books/')
-        .then(
-          response => response.data,
-          error => []
-        )
-    }
-
   });

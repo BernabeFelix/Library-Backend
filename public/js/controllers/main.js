@@ -1,13 +1,14 @@
 angular
   .module('library')
-  .controller('mainCtrl', ($books, $categories, $scope) => {
+  .controller('mainCtrl', ($books, $categories, $paginator, $scope) => {
     // data
     var bookToReserveIndex = undefined;
+    $scope.addEditModal = undefined;
     $scope.books = [];
     $scope.bookYears = [];
-    $scope.categories = [];
     $scope.borrowerName = '';
-    $scope.addEditModal = undefined;
+    $scope.categories = [];
+    $scope.nPages = [];
     // utils
     $scope.addBookToAddEditModal = addBookToAddEditModal;
     $scope.addEditBook = addEditBook;
@@ -27,12 +28,30 @@ angular
       return newDate;
     }
 
+    const createPagesRange = (last) => {
+      var arr = [];
+      for (var i = 0; i < last; i++) {
+        arr.push(i + 1);
+      }
+
+      return arr;
+    }
+
     const hideModal = (selector) => {
       $(selector).modal('toggle');
     }
 
     const initCtrl = () => {
-      $books.getAllBooks().then((books) => $scope.books = books);
+      $paginator.getNextBooks().then((data) => {
+        if (data) {
+          var {
+            data, last_page
+          } = data;
+          $scope.books = data;
+          $scope.nPages = createPagesRange(last_page);
+        }
+
+      });
       $categories.getAllCategories().then((categories) => $scope.categories = categories);
       fillBookYears(1900, 2017);
     }

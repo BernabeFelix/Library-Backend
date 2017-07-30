@@ -14,6 +14,7 @@
         <script type="text/javascript" src="/js/module.js"></script>
         <script type="text/javascript" src="/js/services/books.js"></script>
         <script type="text/javascript" src="/js/services/categories.js"></script>
+        <script type="text/javascript" src="/js/services/paginator.js"></script>
         <script type="text/javascript" src="/js/controllers/main.js"></script>
     </head>
     <body ng-app="library">
@@ -180,6 +181,31 @@
             </div>
           </div>
         </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="row">
+            <div class="col-xs-12">
+              <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination">
+                  <li>
+                    <a href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li ng-repeat="page in nPages">
+                    <a href="#">{{page}}</a>
+                  </li>
+
+                  <li>
+                    <a href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
 
     </body>
