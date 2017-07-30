@@ -8,6 +8,13 @@ use App\Book;
 
 class BookController extends Controller
 {
+  public function destroy($id)
+  {
+    Book::destroy($id);
+
+    return response()->json(['success' => true]);
+  }
+
   public function index()
   {
     return response()->json(Book::all());

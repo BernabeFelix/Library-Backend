@@ -2,6 +2,7 @@ angular
   .module('library')
   .factory('$books', ($http) => {
     var service = {
+      deleteBook,
       editBook,
       getAllBooks
     }
@@ -9,11 +10,11 @@ angular
     return service;
 
     // functions
-    function getAllBooks() {
-      return $http.get('/api/books/')
+    function deleteBook(id) {
+      return $http.delete(`/api/books/${id}`)
         .then(
-          response => response.data,
-          error => []
+          response => true,
+          error => false
         )
     }
 
@@ -34,4 +35,13 @@ angular
           error => false
         )
     }
+
+    function getAllBooks() {
+      return $http.get('/api/books/')
+        .then(
+          response => response.data,
+          error => []
+        )
+    }
+
   });

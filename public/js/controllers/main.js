@@ -11,6 +11,7 @@ angular
     // utils
     $scope.addBookToAddEditModal = addBookToAddEditModal;
     $scope.addEditBook = addEditBook;
+    $scope.deleteBook = deleteBook
     $scope.releaseBook = releaseBook;
     $scope.reserveBook = reserveBook;
     $scope.resetAddEditModal = resetAddEditModal;
@@ -79,6 +80,15 @@ angular
       $scope.addEditModal = Object.assign({}, book);
       // get only the year
       $scope.addEditModal.published_at = parseInt($scope.addEditModal.published_at.split('-').shift());
+    }
+
+    function deleteBook(id, index) {
+      $books.deleteBook(id)
+        .then((allGood) => {
+          if (allGood) {
+            $scope.books.splice(index, 1);
+          }
+        })
     }
 
     function releaseBook(index) {

@@ -94,7 +94,7 @@
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetAddEditModal()">Cancel</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetAddEditModal()">Cancel</button>
                 </div>
               </div>
             </div>
@@ -126,13 +126,13 @@
                   <span class="glyphicon glyphicon-option-vertical"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                  <li ng-show="!book.user">
-                    <a data-toggle="modal" data-target="#reserveBookModal" ng-click="saveBookToReserve($index)">
+                  <li ng-show="!book.user" data-toggle="modal" data-target="#reserveBookModal" ng-click="saveBookToReserve($index)">
+                    <a >
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Reserve
                     </a>
                   </li>
-                  <li ng-show="book.user">
-                    <a ng-click="releaseBook($index)">
+                  <li ng-show="book.user" ng-click="releaseBook($index)">
+                    <a >
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Release
                     </a>
                   </li>
@@ -143,7 +143,7 @@
                     </a>
                   </li>
                   <li role="separator" class="divider"></li>
-                  <li>
+                  <li ng-click="deleteBook(book.id, $index)">
                     <a>
                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                     </a>
@@ -176,7 +176,7 @@
             </div>
             <!-- Footer -->
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetReserveModal()">Cancel</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetReserveModal()">Cancel</button>
             </div>
           </div>
         </div>
