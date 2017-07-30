@@ -125,7 +125,7 @@
               <div class="col-xs-12">
                 <!-- Book info -->
                 <div class="pull-left">
-                  <h4 >{{book.name}}</h4>
+                  <h4 >{{book.name}} ({{book.published_at}})</h4>
                   <span>{{book.author}}</span>
                   <div ng-show="book.user">
                     <br>

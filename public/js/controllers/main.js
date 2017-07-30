@@ -26,14 +26,6 @@ angular
     $scope.saveBookToReserve = saveBookToReserve;
 
     ////////// helpers //////////
-    const changeYearInString = (date, newYear) => {
-      var newDate = date.split('-');
-      newDate[0] = newYear;
-      newDate = newDate.join('-');
-
-      return newDate;
-    }
-
     const createNPages = (responseData) => {
       if (responseData) {
         $scope.nPages = createPagesRange(responseData.last_page);
@@ -87,14 +79,14 @@ angular
       // create a new object and assign the new user
       var bookToReserve = $scope.books[bookToReserveIndex];
       // for new or edit book
-      $scope.addEditModal.published_at = changeYearInString(bookToReserve ? bookToReserve.published_at : '0000-01-01',
-        $scope.addEditModal
-        .published_at);
+      $scope.addEditModal.published_at = `${$scope.addEditModal.published_at}-01-01`;
 
       if ($scope.addEditModal.id) {
         $books.editBook($scope.addEditModal.id, $scope.addEditModal)
           .then((allGood) => {
             if (allGood) {
+              // convert date to year
+              $scope.addEditModal.published_at = parseInt($scope.addEditModal.published_at.split('-').shift());
               $scope.books[bookToReserveIndex] = $scope.addEditModal;
             }
             // clean fields
@@ -108,8 +100,6 @@ angular
 
     function addBookToAddEditModal(book) {
       $scope.addEditModal = Object.assign({}, book);
-      // get only the year
-      $scope.addEditModal.published_at = parseInt($scope.addEditModal.published_at.split('-').shift());
     }
 
     function deleteBook(id, index) {

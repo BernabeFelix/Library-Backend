@@ -39,6 +39,10 @@ module('library')
     }
 
     // utils
+    function getYearFromDate(book) {
+      book.published_at = parseInt(book.published_at.split('-').shift());
+    }
+
     function handlePaginatorResponse({
       data
     }) {
@@ -48,6 +52,8 @@ module('library')
 
       self.nextUrl = next_page_url;
       self.prevUrl = prev_page_url;
+
+      data.forEach(getYearFromDate);
 
       return {
         current_page, data, last_page
