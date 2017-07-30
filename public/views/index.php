@@ -188,7 +188,7 @@
             <div class="col-xs-12">
               <nav aria-label="Page navigation" class="text-center">
                 <ul class="pagination">
-                  <li ng-class="{disabled: currentPage === 1}" ng-click="prevPage()">
+                  <li ng-hide="currentPage === 1" ng-click="prevPage()">
                     <a href="#" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -197,7 +197,7 @@
                     <a >{{page}}</a>
                   </li>
 
-                  <li ng-click="nextPage()">
+                  <li ng-hide="currentPage === nPages.length" ng-click="nextPage()">
                     <a aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
