@@ -48,7 +48,7 @@
                     </a>
                   </li>
                   <li ng-show="book.user">
-                    <a data-toggle="modal" >
+                    <a ng-click="releaseBook($index)">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Release
                     </a>
                   </li>

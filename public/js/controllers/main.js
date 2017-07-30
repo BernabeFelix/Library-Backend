@@ -6,6 +6,7 @@ angular
     $scope.borrowerName = '';
     $scope.bookToReserveIndex = undefined;
     // utils
+    $scope.releaseBook = releaseBook;
     $scope.reserveBook = reserveBook;
     $scope.saveBookToReserve = saveBookToReserve;
 
@@ -15,6 +16,19 @@ angular
 
     function saveBookToReserve(index) {
       $scope.bookToReserveIndex = index;
+    }
+
+    function releaseBook(index) {
+      // create a new object and assign the new user
+      var bookToReserve = Object.assign({}, $scope.books[index]);
+      bookToReserve.user = '';
+
+      $books.editBook(bookToReserve)
+        .then((allGood) => {
+          if (allGood) {
+            $scope.books[index] = bookToReserve;
+          }
+        })
     }
 
     function reserveBook(formInvalid) {
