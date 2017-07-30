@@ -21,11 +21,9 @@
       <div class="container" ng-controller="mainCtrl">
         <!-- Search bar -->
         <div class="row" style="margin-bottom: 40px; margin-top: 20px;">
-          <div class="col-xs-12">
+          <div class="col-xs-12 col-md-8 col-md-offset-2">
             <h3>Filter books</h3>
-          </div>
 
-          <div class="col-xs-12">
             <input
               class="form-control"
               ng-model="filterText"
@@ -38,8 +36,8 @@
 
 
         <!-- Add/Edit Book Modal -->
-        <div class="row">
-          <div class="col-xs-5">
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-5 col-md-3 col-md-offset-2">
             <button
               class="btn btn-success"
               data-toggle="modal"
@@ -122,7 +120,7 @@
 
         <!-- Book List -->
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="book in books" ng-class="book.user? 'list-group-item-danger': 'list-group-item-success'">
+          <li class="list-group-item col-md-8 col-md-offset-2" ng-repeat="book in books" ng-class="book.user? 'list-group-item-danger': 'list-group-item-success'">
             <div class="row">
               <div class="col-xs-12">
                 <!-- Book info -->
