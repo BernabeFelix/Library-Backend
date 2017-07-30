@@ -13,11 +13,80 @@
         <!-- AngularJs Stuff -->
         <script type="text/javascript" src="/js/module.js"></script>
         <script type="text/javascript" src="/js/services/books.js"></script>
+        <script type="text/javascript" src="/js/services/categories.js"></script>
         <script type="text/javascript" src="/js/controllers/main.js"></script>
-        <!-- <script type="text/javascript" src="/js/components/bookList.js"></script> -->
     </head>
     <body ng-app="library">
       <div class="container" ng-controller="mainCtrl">
+        <!-- Add/Edit Book Modal -->
+        <div class="row">
+          <div class="col-xs-5">
+            <button
+              class="btn btn-success"
+              data-toggle="modal"
+              data-target="#addEditBookModal"
+              name="button"
+              style="width: 100%;"
+              type="button"
+              >Add Book</button>
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="addEditBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel"> Add Book </h4>
+                </div>
+                <!-- Body -->
+                <div class="modal-body">
+                  <form method="POST" action="/books">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                      <label for="nameInput">Name</label>
+                      <input type="text" class="form-control" id="nameInput" ng-model="addEditModal.name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="authorInput">Author</label>
+                      <input type="text" class="form-control" id="authorInput" ng-model="addEditModal.author" placeholder="Author">
+                    </div>
+                    <div class="form-group">
+                      <label for="categorySelect">Category</label>
+                      <select
+                        class="form-control"
+                        id="categorySelect"
+                        ng-model="addEditModal.category_id">
+                          <option
+                            ng-value="category.id"
+                            ng-repeat="category in categories">{{category.name}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="publishedDateYearSelect">Published Year</label>
+                      <select
+                        class="form-control"
+                        id="publishedDateYearSelect"
+                        ng-model="addEditModal.published_at">
+                        <option
+                          ng-value="year"
+                          ng-repeat="year in bookYears">{{year}}</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                  </form>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book List -->
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="book in books" ng-class="book.user? 'list-group-item-danger': 'list-group-item-success'">
             <div class="row">
@@ -53,7 +122,7 @@
                     </a>
                   </li>
                   <li role="separator" class="divider"></li>
-                  <li>
+                  <li data-toggle="modal" data-target="#addEditBookModal" ng-click="saveBookToReserve($index);addBookToAddEditModal(book);">
                     <a>
                       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                     </a>
@@ -97,5 +166,6 @@
           </div>
         </div>
         </div>
+
     </body>
 </html>
