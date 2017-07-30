@@ -42,22 +42,27 @@
                   <span class="glyphicon glyphicon-option-vertical"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                  <li>
-                    <button type="button" name="button">
+                  <li ng-show="!book.user">
+                    <a data-toggle="modal" data-target="#reserveBookModal" ng-click="saveBookToReserve($index)">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Reserve
-                    </button>
+                    </a>
+                  </li>
+                  <li ng-show="book.user">
+                    <a data-toggle="modal" >
+                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Release
+                    </a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <button type="button" name="button">
+                    <a>
                       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
-                    </button>
+                    </a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <button type="button" name="button">
+                    <a>
                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -65,20 +70,32 @@
           </li>
         </ul>
 
-
-        <!-- Pagination -->
-        <!-- @extends ('home.pagination') -->
-
         <!-- Reserve Book Modal -->
-        <!-- @extends ('home.reserveModal') -->
+        <div class="modal fade" id="reserveBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"> Reserve Book </h4>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+              <form name="reserveForm" novalidate ng-submit="reserveBook(reserveForm.$invalid);">
+                <div class="form-group">
+                  <label for="personNameInput">Person's Name</label>
+                  <input type="text" class="form-control" id="personNameInput" ng-model="borrowerName" placeholder="Name" required>
+                </div>
 
-        <!-- Book List -->
-        <!-- @extends ('home.booksList') -->
-
-        <!-- Add Book Modal-->
-        <!-- @extends ('home.addBook') -->
-
-        <!-- Filter Box-->
-        <!-- @extends ('home.search') -->
+                <button type="submit" class="btn btn-success" ng-disabled="reserveForm.$invalid">Reserve</button>
+              </form>
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+        </div>
     </body>
 </html>

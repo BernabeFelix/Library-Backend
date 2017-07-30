@@ -18,5 +18,5 @@ Route::get('/', function() {
 
 Route::group(array('prefix' => 'api'), function() {
     Route::resource('books', 'BookController',
-        array('only' => array('index')));
+        array('only' => array('index', 'update')));
 });
