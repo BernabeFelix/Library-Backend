@@ -13,6 +13,8 @@ angular
     function createBook({
       author, category_id, name, published_at
     }) {
+      published_at = `${published_at}-01-01`;
+
       return $http.post(`/api/books/`, {
           author,
           category_id,
@@ -42,6 +44,8 @@ angular
       var {
         author, category_id, name, published_at, user
       } = data;
+      // return month/day
+      published_at = `${published_at}-01-01`;
 
       return $http.patch(`/api/books/${id}`, {
           author,

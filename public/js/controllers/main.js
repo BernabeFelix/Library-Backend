@@ -78,15 +78,12 @@ angular
 
       // create a new object and assign the new user
       var bookToReserve = $scope.books[bookToReserveIndex];
-      // for new or edit book
-      $scope.addEditModal.published_at = `${$scope.addEditModal.published_at}-01-01`;
 
       if ($scope.addEditModal.id) {
         $books.editBook($scope.addEditModal.id, $scope.addEditModal)
           .then((allGood) => {
             if (allGood) {
               // convert date to year
-              $scope.addEditModal.published_at = parseInt($scope.addEditModal.published_at.split('-').shift());
               $scope.books[bookToReserveIndex] = $scope.addEditModal;
             }
             // clean fields
