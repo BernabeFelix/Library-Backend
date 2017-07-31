@@ -9,7 +9,7 @@ angular
 
     // functions
     function getAllCategories() {
-      return $http.get('/api/categories/')
+      return $http.get('/api/categories')
         .then(
           response => response.data,
           error => []

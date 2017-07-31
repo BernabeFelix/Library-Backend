@@ -15,7 +15,7 @@ angular
     }) {
       published_at = `${published_at}-01-01`;
 
-      return $http.post(`/api/books/`, {
+      return $http.post(`/api/books`, {
           author,
           category_id,
           name,
