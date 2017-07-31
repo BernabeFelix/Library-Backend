@@ -54,7 +54,7 @@
               <div class="modal-content">
                 <!-- Header -->
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetAddEditModal()"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title" id="myModalLabel"> Add Book </h4>
                 </div>
                 <!-- Body -->
@@ -177,7 +177,7 @@
           <div class="modal-content">
             <!-- Header -->
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetReserveModal()"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"> Reserve Book </h4>
             </div>
             <!-- Body -->
