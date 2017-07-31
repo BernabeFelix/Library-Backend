@@ -23,3 +23,7 @@ Route::group(array('prefix' => 'api'), function() {
     Route::resource('categories', 'CategoryController',
         array('only' => array('index')));
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
